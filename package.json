@@ -14,7 +14,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jest-environment-jsdom-fourteen",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -31,5 +31,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "canvas": "^2.6.1",
+    "jest-canvas-mock": "^2.2.0",
+    "jest-environment-jsdom-fourteen": "^1.0.1"
   }
 }
