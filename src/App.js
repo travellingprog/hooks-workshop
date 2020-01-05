@@ -1,4 +1,6 @@
 import React from 'react';
+import { saveAs } from 'file-saver';
+
 import './App.css';
 
 const { Image } = window;
@@ -17,22 +19,27 @@ const memeTemplates = [
 ];
 
 class App extends React.Component {
-  canvasRef = React.createRef()
-
-  image = null
-
+  canvasRef = React.createRef();
+  image = null;
   state = {
     caption: '',
     meme: memeTemplates[0].value,
-  }
+  };
 
   onCaptionInput = (event) => {
     this.setState({ caption: event.target.value });
-  }
+  };
 
   onMemeSelect = (event) => {
     this.setState({ meme: event.target.value });
-  }
+  };
+
+  downloadMeme = () => {
+    const canvas = this.canvasRef.current;
+    canvas.toBlob(blob => {
+      saveAs(blob, 'meme.png');
+    });
+  };
 
   async loadMemeTemplate(memeValue) {
     const component = this;
@@ -73,8 +80,7 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
-    const { caption, meme } = this.state;
-
+    const { meme } = this.state;
     await this.loadMemeTemplate(meme);
     this.drawCanvas();
   }
@@ -110,6 +116,7 @@ class App extends React.Component {
           <input type="text" value={caption} onChange={this.onCaptionInput} />
         </label>
         <canvas ref={this.canvasRef} />
+        <button onClick={this.downloadMeme}>Download</button>
       </div>
     );
   }
