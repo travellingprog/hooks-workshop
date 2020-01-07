@@ -6,26 +6,40 @@ import memeTemplates from './memeTemplates.json';
 
 function App() {
   const canvasRef = useRef(null);
-  const [image, setImage] = useState(new window.Image());
+  const [image, setImage] = useState(null);
   const [caption, setCaption] = useState('');
   const [meme, setMeme] = useState(memeTemplates[0].value);
 
-  const onCaptionInput = (event) => {
+  function onCaptionInput(event){
     setCaption(event.target.value);
-  };
+  }
 
-  const onMemeSelect = (event) => {
+  function onMemeSelect(event) {
     setMeme(event.target.value);
-  };
+  }
 
-  const downloadMeme = () => {
+  function downloadMeme() {
     const canvas = canvasRef.current;
     canvas.toBlob(blob => {
       saveAs(blob, 'meme.png');
     });
-  };
+  }
 
-  const drawCanvas = (image, caption) => {
+  async function loadMemeTemplate(memeValue) {
+    const template = memeTemplates.find(template => template.value === memeValue);
+    const img = new window.Image();
+
+    const imgLoadPromise = new Promise((resolve, reject) => {
+      img.onload = resolve;
+      img.onerror = reject;
+    });
+
+    img.src = process.env.PUBLIC_URL + template.path;
+    await imgLoadPromise;
+    setImage(img);
+  }
+
+  function drawCanvas(image, caption) {
     const { height, width } = image;
     const canvas = canvasRef.current;
     canvas.width = width;
@@ -40,29 +54,17 @@ function App() {
     ctx.textAlign = 'center';
     ctx.fillText(caption, width * 0.5, height * 0.15);
     ctx.strokeText(caption, width * 0.5, height * 0.15);
-  };
+  }
 
   useEffect(() => {
-    async function loadMemeTemplate(memeValue) {
-      const template = memeTemplates.find(template => template.value === memeValue);
-      const img = new window.Image();
-
-      const imgLoadPromise = new Promise((resolve, reject) => {
-        img.onload = resolve;
-        img.onerror = reject;
-      });
-
-      img.src = process.env.PUBLIC_URL + template.path;
-      await imgLoadPromise;
-      setImage(img);
-    }
-
-    loadMemeTemplate(meme).catch(err => console.error(err));
+    loadMemeTemplate(meme)
   }, [meme]);
 
   useEffect(() => {
-    drawCanvas(image, caption);
-  }, [image, caption]);
+    if (image) {
+      drawCanvas(image, caption);
+    }
+  }, [image, caption, canvasRef]);
 
   return (
     <div className="App">
