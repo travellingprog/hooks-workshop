@@ -1,53 +1,33 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { saveAs } from 'file-saver';
 
 import './App.css';
 import memeTemplates from './memeTemplates.json';
 
-class App extends React.Component {
-  canvasRef = React.createRef();
-  image = null;
-  state = {
-    caption: '',
-    meme: memeTemplates[0].value,
+function App() {
+  const canvasRef = useRef(null);
+  const [image, setImage] = useState(new window.Image());
+  const [caption, setCaption] = useState('');
+  const [meme, setMeme] = useState(memeTemplates[0].value);
+
+  const onCaptionInput = (event) => {
+    setCaption(event.target.value);
   };
 
-  onCaptionInput = (event) => {
-    this.setState({ caption: event.target.value });
+  const onMemeSelect = (event) => {
+    setMeme(event.target.value);
   };
 
-  onMemeSelect = (event) => {
-    this.setState({ meme: event.target.value });
-  };
-
-  downloadMeme = () => {
-    const canvas = this.canvasRef.current;
+  const downloadMeme = () => {
+    const canvas = canvasRef.current;
     canvas.toBlob(blob => {
       saveAs(blob, 'meme.png');
     });
   };
 
-  async loadMemeTemplate(memeValue) {
-    const template = memeTemplates.find(template => template.value === memeValue);
-    const img = new window.Image();
-
-    const imgLoadPromise = new Promise((resolve, reject) => {
-      img.onload = function () {
-        resolve(img);
-      };
-
-      img.onerror = err => {
-        reject(err);
-      };
-    });
-
-    img.src = process.env.PUBLIC_URL + template.path;
-    return imgLoadPromise;
-  }
-
-  drawCanvas(image, caption) {
+  const drawCanvas = (image, caption) => {
     const { height, width } = image;
-    const canvas = this.canvasRef.current;
+    const canvas = canvasRef.current;
     canvas.width = width;
     canvas.height = height;
 
@@ -60,49 +40,48 @@ class App extends React.Component {
     ctx.textAlign = 'center';
     ctx.fillText(caption, width * 0.5, height * 0.15);
     ctx.strokeText(caption, width * 0.5, height * 0.15);
-  }
+  };
 
-  async componentDidMount() {
-    const { caption, meme } = this.state;
-    this.image = await this.loadMemeTemplate(meme);
-    this.drawCanvas(this.image, caption);
-  }
+  useEffect(() => {
+    async function loadMemeTemplate(memeValue) {
+      const template = memeTemplates.find(template => template.value === memeValue);
+      const img = new window.Image();
 
-  async componentDidUpdate(prevProps, prevState) {
-    const { caption, meme } = this.state;
+      const imgLoadPromise = new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+      });
 
-    if (meme !== prevState.meme) {
-      this.image = await this.loadMemeTemplate(meme);
-      this.drawCanvas(this.image, caption);
+      img.src = process.env.PUBLIC_URL + template.path;
+      await imgLoadPromise;
+      setImage(img);
     }
 
-    if (caption !== prevState.caption) {
-      this.drawCanvas(this.image, caption);
-    }
-  }
+    loadMemeTemplate(meme).catch(err => console.error(err));
+  }, [meme]);
 
-  render() {
-    const { caption, meme } = this.state;
+  useEffect(() => {
+    drawCanvas(image, caption);
+  }, [image, caption]);
 
-    return (
-      <div className="App">
-        <label>
-          Select a meme template <br />
-          <select value={meme} onChange={this.onMemeSelect}>
-            { memeTemplates.map(template =>
-              <option key={template.value} value={template.value}>{template.text}</option>
-            )}
-          </select>
-        </label>
-        <label>
-          Enter your meme caption <br />
-          <input type="text" value={caption} onChange={this.onCaptionInput} />
-        </label>
-        <canvas ref={this.canvasRef} />
-        <button onClick={this.downloadMeme}>Download</button>
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <label>
+        Select a meme template <br />
+        <select value={meme} onChange={onMemeSelect}>
+          { memeTemplates.map(template =>
+            <option key={template.value} value={template.value}>{template.text}</option>
+          )}
+        </select>
+      </label>
+      <label>
+        Enter your meme caption <br />
+        <input type="text" value={caption} onChange={onCaptionInput} />
+      </label>
+      <canvas ref={canvasRef} />
+      <button onClick={downloadMeme}>Download</button>
+    </div>
+  );
 }
 
 export default App;
