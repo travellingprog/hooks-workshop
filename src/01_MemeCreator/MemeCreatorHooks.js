@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { saveAs } from 'file-saver';
 
-import styles from './App.module.css';
+import styles from './MemeCreator.module.css';
 import memeTemplates from './memeTemplates.json';
 
-function App() {
+function MemeCreator() {
   const canvasRef = useRef(null);
   const [image, setImage] = useState(null);
   const [caption, setCaption] = useState('');
@@ -86,4 +86,4 @@ function App() {
   );
 }
 
-export default App;
+export default MemeCreator;
