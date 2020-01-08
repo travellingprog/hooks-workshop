@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Hooks Workshop
+
+This repo was created for a workshop on React Hooks. It presents examples of traditional React components (built by creating a `class` that extends `React.Component`) being converted to functional component
 
 ## Available Scripts
 

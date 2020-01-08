@@ -1,7 +1,7 @@
 import React from 'react';
 import { saveAs } from 'file-saver';
 
-import './App.css';
+import styles from './App.module.css';
 import memeTemplates from './memeTemplates.json';
 
 class App extends React.Component {
@@ -80,21 +80,22 @@ class App extends React.Component {
     const { caption, meme } = this.state;
 
     return (
-      <div className="App">
-        <label>
+      <div className={styles.root}>
+        <label className={styles.label}>
           Select a meme template <br />
-          <select value={meme} onChange={this.onMemeSelect}>
+          <select value={meme} onChange={this.onMemeSelect} className={styles.select}>
             { memeTemplates.map(template =>
               <option key={template.value} value={template.value}>{template.text}</option>
             )}
           </select>
         </label>
-        <label>
+        <label className={styles.label}>
           Enter your meme caption <br />
-          <input type="text" value={caption} onChange={this.onCaptionInput} />
+          <input type="text" value={caption} onChange={this.onCaptionInput}
+            className={styles.input} />
         </label>
-        <canvas ref={this.canvasRef} />
-        <button onClick={this.downloadMeme}>Download</button>
+        <canvas ref={this.canvasRef} className={styles.canvas} />
+        <button onClick={this.downloadMeme} className={styles.btn}>Download</button>
       </div>
     );
   }
