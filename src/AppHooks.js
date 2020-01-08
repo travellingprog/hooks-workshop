@@ -18,11 +18,10 @@ function App() {
     setMeme(event.target.value);
   }
 
-  function downloadMeme() {
+  async function downloadMeme() {
     const canvas = canvasRef.current;
-    canvas.toBlob(blob => {
-      saveAs(blob, 'meme.png');
-    });
+    const blob = await new Promise(resolve => canvas.toBlob(resolve));
+    saveAs(blob, 'meme.png');
   }
 
   async function loadMemeTemplate(memeValue) {

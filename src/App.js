@@ -20,11 +20,10 @@ class App extends React.Component {
     this.setState({ meme: event.target.value });
   };
 
-  downloadMeme = () => {
+  downloadMeme = async () => {
     const canvas = this.canvasRef.current;
-    canvas.toBlob(blob => {
-      saveAs(blob, 'meme.png');
-    });
+    const blob = await new Promise(resolve => canvas.toBlob(resolve));
+    saveAs(blob, 'meme.png');
   };
 
   async loadMemeTemplate(memeValue) {

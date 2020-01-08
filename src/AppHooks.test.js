@@ -130,23 +130,16 @@ test('updates the canvas when another template is selected', async () => {
 });
 
 test('triggers a save of the canvas Blob when clicking Download btn', async () => {
+  // set a Promise that resolves when our saveAs mock is called
+  const saveCalled = new Promise((resolve) => {
+    saveAs.mockClear();
+    saveAs.mockImplementation(resolve);
+  });
+
   let getByText;
   await act(async () => {
     ({ getByText } = render(<App />));
   });
-
-  // when canvas.toBlob is used, set up a Promise that resolves when Blob is handled
-  let toBlobPromise;
-  const realToBlob = HTMLCanvasElement.prototype.toBlob;
-  HTMLCanvasElement.prototype.toBlob = function (handler) {
-    const canvas = this;
-    toBlobPromise = new Promise(resolve => {
-      realToBlob.call(canvas, blob => {
-        handler(blob);
-        resolve();
-      });
-    });
-  };
 
   // click Download btn
   await act(async () => {
@@ -154,8 +147,8 @@ test('triggers a save of the canvas Blob when clicking Download btn', async () =
     fireEvent.click(dlBtn);
   });
 
-  await toBlobPromise;
+  await saveCalled;
   expect(saveAs).toHaveBeenCalledTimes(1);
 
-  HTMLCanvasElement.prototype.toBlob = realToBlob;
+  saveAs.mockImplementation(() => {}); // set mock back to a noop
 });
