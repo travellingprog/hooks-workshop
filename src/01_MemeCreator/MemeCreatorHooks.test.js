@@ -1,9 +1,9 @@
 import React from 'react';
-import { Image } from 'canvas';
+import { Image, CanvasRenderingContext2D } from 'canvas';
 import { fireEvent, render, act } from '@testing-library/react';
 import { saveAs } from 'file-saver';
 
-import App from './App';
+import MemeCreator from './MemeCreatorHooks';
 
 jest.mock('./memeTemplates.json', () => [
   {
@@ -36,7 +36,7 @@ test('renders component correctly', async () => {
   let getByLabelText;
 
   await act(async () => {
-    ({ getByLabelText } = render(<App />));
+    ({ getByLabelText } = render(<MemeCreator />));
   });
 
   const selectElement = getByLabelText(/meme template/i);
@@ -47,14 +47,17 @@ test('renders component correctly', async () => {
 
 test('sets up the canvas on load', async () => {
   let container;
-  const drawSpy = jest.spyOn(App.prototype, 'drawCanvas');
+  const drawImgSpy = jest.spyOn(CanvasRenderingContext2D.prototype, 'drawImage');
+  const fillTxtSpy = jest.spyOn(CanvasRenderingContext2D.prototype, 'fillText');
 
   await act(async () => {
-    ({ container } = render(<App />));
+    ({ container } = render(<MemeCreator />));
   });
 
-  expect(drawSpy).toHaveBeenCalledTimes(1);
-  expect(drawSpy).toHaveBeenCalledWith(expect.any(Image), '');
+  expect(drawImgSpy).toHaveBeenCalledTimes(1);
+  expect(drawImgSpy).toHaveBeenCalledWith(expect.any(Image), 0, 0);
+  expect(fillTxtSpy).toHaveBeenCalledTimes(1);
+  expect(fillTxtSpy).toHaveBeenCalledWith('', expect.any(Number), expect.any(Number));
 
   const canvas = container.querySelector('canvas');
   expect(canvas.width).toBe(500); // match dawson.jpg width
@@ -62,20 +65,21 @@ test('sets up the canvas on load', async () => {
   const dataUrl = canvas.toDataURL('image/png', 0.92);
   expect(dataUrl).toMatchSnapshot();
 
-  drawSpy.mockRestore();
+  drawImgSpy.mockRestore();
+  fillTxtSpy.mockRestore();
 });
 
 test('updates the canvas on caption change', async () => {
   let container;
   let getByLabelText;
-  const drawSpy = jest.spyOn(App.prototype, 'drawCanvas');
+  const fillTxtSpy = jest.spyOn(CanvasRenderingContext2D.prototype, 'fillText');
 
   await act(async () => {
-    ({ container, getByLabelText } = render(<App />));
+    ({ container, getByLabelText } = render(<MemeCreator />));
   });
 
-  expect(drawSpy).toHaveBeenCalledTimes(1);
-  expect(drawSpy).toHaveBeenLastCalledWith(expect.any(Image), '');
+  expect(fillTxtSpy).toHaveBeenCalledTimes(1);
+  expect(fillTxtSpy).toHaveBeenCalledWith('', expect.any(Number), expect.any(Number));
 
   // update caption
   await act(async () => {
@@ -83,8 +87,8 @@ test('updates the canvas on caption change', async () => {
     fireEvent.change(inputElement, { target: { value: 'Hello' } });
   });
 
-  expect(drawSpy).toHaveBeenCalledTimes(2);
-  expect(drawSpy).toHaveBeenLastCalledWith(expect.any(Image), 'Hello');
+  expect(fillTxtSpy).toHaveBeenCalledTimes(2);
+  expect(fillTxtSpy).toHaveBeenLastCalledWith('Hello', expect.any(Number), expect.any(Number));
 
   const canvas = container.querySelector('canvas');
   expect(canvas.width).toBe(500); // match dawson.jpg width
@@ -92,20 +96,20 @@ test('updates the canvas on caption change', async () => {
   const dataUrl = canvas.toDataURL('image/png', 0.92);
   expect(dataUrl).toMatchSnapshot();
 
-  drawSpy.mockRestore();
+  fillTxtSpy.mockRestore();
 });
 
 test('updates the canvas when another template is selected', async () => {
   let container;
   let getByLabelText;
-  const drawSpy = jest.spyOn(App.prototype, 'drawCanvas');
+  const drawImgSpy = jest.spyOn(CanvasRenderingContext2D.prototype, 'drawImage');
 
   await act(async () => {
-    ({ container, getByLabelText } = render(<App />));
+    ({ container, getByLabelText } = render(<MemeCreator />));
   });
 
-  expect(drawSpy).toHaveBeenCalledTimes(1);
-  expect(drawSpy).toHaveBeenLastCalledWith(expect.any(Image), '');
+  expect(drawImgSpy).toHaveBeenCalledTimes(1);
+  expect(drawImgSpy).toHaveBeenCalledWith(expect.any(Image), 0, 0);
 
   // update template
   await act(async () => {
@@ -113,8 +117,8 @@ test('updates the canvas when another template is selected', async () => {
     fireEvent.change(selectElement, { target: { value: 'jackieChan' } });
   });
 
-  expect(drawSpy).toHaveBeenCalledTimes(2);
-  expect(drawSpy).toHaveBeenLastCalledWith(expect.any(Image), '');
+  expect(drawImgSpy).toHaveBeenCalledTimes(2);
+  expect(drawImgSpy).toHaveBeenLastCalledWith(expect.any(Image), 0, 0);
 
   const canvas = container.querySelector('canvas');
   expect(canvas.width).toBe(500); // match jackie-chan.jpg width
@@ -122,7 +126,7 @@ test('updates the canvas when another template is selected', async () => {
   const dataUrl = canvas.toDataURL('image/png', 0.92);
   expect(dataUrl).toMatchSnapshot();
 
-  drawSpy.mockRestore();
+  drawImgSpy.mockRestore();
 });
 
 test('triggers a save of the canvas Blob when clicking Download btn', async () => {
@@ -134,7 +138,7 @@ test('triggers a save of the canvas Blob when clicking Download btn', async () =
 
   let getByText;
   await act(async () => {
-    ({ getByText } = render(<App />));
+    ({ getByText } = render(<MemeCreator />));
   });
 
   // click Download btn

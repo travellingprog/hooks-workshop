@@ -1,10 +1,10 @@
 import React from 'react';
 import { saveAs } from 'file-saver';
 
-import styles from './App.module.css';
+import styles from './MemeCreator.module.css';
 import memeTemplates from './memeTemplates.json';
 
-class App extends React.Component {
+class MemeCreator extends React.Component {
   canvasRef = React.createRef();
   image = null;
   state = {
@@ -101,4 +101,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default MemeCreator;
