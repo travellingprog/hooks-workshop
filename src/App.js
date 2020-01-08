@@ -20,11 +20,10 @@ class App extends React.Component {
     this.setState({ meme: event.target.value });
   };
 
-  downloadMeme = () => {
+  downloadMeme = async () => {
     const canvas = this.canvasRef.current;
-    canvas.toBlob(blob => {
-      saveAs(blob, 'meme.png');
-    });
+    const blob = await new Promise(resolve => canvas.toBlob(resolve));
+    saveAs(blob, 'meme.png');
   };
 
   async loadMemeTemplate(memeValue) {
@@ -32,17 +31,13 @@ class App extends React.Component {
     const img = new window.Image();
 
     const imgLoadPromise = new Promise((resolve, reject) => {
-      img.onload = function () {
-        resolve(img);
-      };
-
-      img.onerror = err => {
-        reject(err);
-      };
+      img.onload = resolve;
+      img.onerror = reject;
     });
 
     img.src = process.env.PUBLIC_URL + template.path;
-    return imgLoadPromise;
+    await imgLoadPromise;
+    return img;
   }
 
   drawCanvas(image, caption) {
