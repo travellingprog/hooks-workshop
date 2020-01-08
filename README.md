@@ -1,4 +1,26 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Hooks Workshop
+
+## Workshop Instructions
+
+This repo was created for a workshop on React Hooks. It presents examples of traditional React components (built by creating a `class` that extends `React.Component`) being converted to functional component that use hooks.
+
+To begin this workshop
+- fork this repo
+- clone the repo locally
+- Use the latest version of Node indicated in the file `.nvmrc`. If you are using NVM, you can run `nvm use`
+- Run `npm install`
+
+To run this application (in development mode):
+```
+npm start
+```
+
+To run the test for this application:
+```
+npm test
+```
+
+This repository was built with Create-React-App. The rest of this README is content added automatically by that tool.
 
 ## Available Scripts
 

@@ -1,12 +1,37 @@
 [
   {
+    "value": "ancientAliens",
+    "text": "Ancient Aliens",
+    "path": "/memes/ancient-aliens.png"
+  },
+  {
+    "value": "jackieChan",
+    "text": "Confused Jackie Chan",
+    "path": "/memes/jackie-chan.jpg"
+  },
+  {
     "value": "cryingDawson",
     "text": "Crying Dawson",
     "path": "/memes/dawson.jpg"
   },
   {
-    "value": "jackieChan",
-    "text": "Jackie Chan",
-    "path": "/memes/jackie-chan.jpg"
+    "value": "excitedJonah",
+    "text": "Excited Jonah",
+    "path": "/memes/excited-jonah.jpeg"
+  },
+  {
+    "value": "successBaby",
+    "text": "Success Baby",
+    "path": "/memes/success-baby.jpg"
+  },
+  {
+    "value": "kevinHart",
+    "text": "Surprised Kevin Hart",
+    "path": "/memes/kevin-hart.jpg"
+  },
+  {
+    "value": "verySmart",
+    "text": "Very Smart",
+    "path": "/memes/smart-move.jpeg"
   }
 ]
