@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Films from './Films';
-import Person from './Person';
+import Films from './FilmsHooks';
+import Person from './PersonHooks';
 import Planets from './Planets';
 
 function StarWarsInfo() {

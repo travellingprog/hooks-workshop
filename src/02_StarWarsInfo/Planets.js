@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useDebounce from 'react-use/lib/useDebounce';
 
-import PlanetsTable from './PlanetsTable';
+import PlanetsTable from './PlanetsTableHooks';
 
 function Planets() {
   const [page, setPage] = useState(1);
