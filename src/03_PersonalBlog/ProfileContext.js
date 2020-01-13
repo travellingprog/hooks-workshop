@@ -1,17 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from "@reach/router";
 
 import months from './months.json';
+import { UserContext } from './UserContext1';
 
-function Profile(props) {
+function Profile() {
   const {
     name,
+    setName,
     birthMonth,
     birthDay,
-    setName,
     setBirthMonth,
     setBirthDay,
-  } = props;
+  } = useContext(UserContext);
 
   function onNameChange(event) {
     setName(event.target.value);
