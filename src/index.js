@@ -5,7 +5,7 @@ import { Link, Router } from "@reach/router";
 import './index.css';
 import MemeCreator from './01_MemeCreator/MemeCreator';
 import StarWarsInfo from './02_StarWarsInfo/StarWarsInfo';
-import PersonalBlog from './03_PersonalBlog/PersonalBlog';
+import PersonalBlog from './03_PersonalBlog/PersonalBlogContext';
 
 const App = () => (
   <div>
