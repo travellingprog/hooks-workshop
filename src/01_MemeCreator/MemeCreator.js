@@ -80,7 +80,7 @@ class MemeCreator extends React.Component {
     const { caption, meme } = this.state;
 
     return (
-      <div className={styles.root}>
+      <main className={styles.root}>
         <label className={styles.label}>
           Select a meme template <br />
           <select value={meme} onChange={this.onMemeSelect} className={styles.select}>
@@ -96,7 +96,7 @@ class MemeCreator extends React.Component {
         </label>
         <canvas ref={this.canvasRef} className={styles.canvas} />
         <button onClick={this.downloadMeme} className={styles.btn}>Download</button>
-      </div>
+      </main>
     );
   }
 }
