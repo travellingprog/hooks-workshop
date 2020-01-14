@@ -30,13 +30,12 @@ class MemeCreator extends React.Component {
     const template = memeTemplates.find(template => template.value === memeValue);
     const img = new window.Image();
 
-    const imgLoadPromise = new Promise((resolve, reject) => {
+    await new Promise((resolve, reject) => {
       img.onload = resolve;
       img.onerror = reject;
+      img.src = process.env.PUBLIC_URL + template.path;
     });
 
-    img.src = process.env.PUBLIC_URL + template.path;
-    await imgLoadPromise;
     return img;
   }
 
