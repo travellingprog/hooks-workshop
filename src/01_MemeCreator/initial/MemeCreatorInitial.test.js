@@ -1,9 +1,9 @@
 import React from 'react';
-import { Image, CanvasRenderingContext2D } from 'canvas';
+import { Image } from 'canvas';
 import { fireEvent, render, act } from '@testing-library/react';
 import { saveAs } from 'file-saver';
 
-import MemeCreator from './MemeCreatorHooks';
+import MemeCreator from '../MemeCreator';
 
 async function getCanvasSnapshot(canvas) {
   const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.5));
@@ -17,7 +17,7 @@ async function getCanvasSnapshot(canvas) {
   return blobText;
 }
 
-jest.mock('./memeTemplates.json', () => [
+jest.mock('../memeTemplates.json', () => [
   {
     value: 'cryingDawson',
     text: 'Crying Dawson',
@@ -59,17 +59,14 @@ test('renders component correctly', async () => {
 
 test('sets up the canvas on load', async () => {
   let container;
-  const drawImgSpy = jest.spyOn(CanvasRenderingContext2D.prototype, 'drawImage');
-  const fillTxtSpy = jest.spyOn(CanvasRenderingContext2D.prototype, 'fillText');
+  const drawSpy = jest.spyOn(MemeCreator.prototype, 'drawCanvas');
 
   await act(async () => {
     ({ container } = render(<MemeCreator />));
   });
 
-  expect(drawImgSpy).toHaveBeenCalledTimes(1);
-  expect(drawImgSpy).toHaveBeenCalledWith(expect.any(Image), 0, 0);
-  expect(fillTxtSpy).toHaveBeenCalledTimes(1);
-  expect(fillTxtSpy).toHaveBeenCalledWith('', expect.any(Number), expect.any(Number));
+  expect(drawSpy).toHaveBeenCalledTimes(1);
+  expect(drawSpy).toHaveBeenCalledWith(expect.any(Image), '');
 
   const canvas = container.querySelector('canvas');
   expect(canvas.width).toBe(500); // match dawson.jpg width
@@ -77,21 +74,20 @@ test('sets up the canvas on load', async () => {
   const snapshot = await getCanvasSnapshot(canvas);
   expect(snapshot).toMatchSnapshot();
 
-  drawImgSpy.mockRestore();
-  fillTxtSpy.mockRestore();
+  drawSpy.mockRestore();
 });
 
 test('updates the canvas on caption change', async () => {
   let container;
   let getByLabelText;
-  const fillTxtSpy = jest.spyOn(CanvasRenderingContext2D.prototype, 'fillText');
+  const drawSpy = jest.spyOn(MemeCreator.prototype, 'drawCanvas');
 
   await act(async () => {
     ({ container, getByLabelText } = render(<MemeCreator />));
   });
 
-  expect(fillTxtSpy).toHaveBeenCalledTimes(1);
-  expect(fillTxtSpy).toHaveBeenCalledWith('', expect.any(Number), expect.any(Number));
+  expect(drawSpy).toHaveBeenCalledTimes(1);
+  expect(drawSpy).toHaveBeenLastCalledWith(expect.any(Image), '');
 
   // update caption
   await act(async () => {
@@ -99,8 +95,8 @@ test('updates the canvas on caption change', async () => {
     fireEvent.change(inputElement, { target: { value: 'Hello' } });
   });
 
-  expect(fillTxtSpy).toHaveBeenCalledTimes(2);
-  expect(fillTxtSpy).toHaveBeenLastCalledWith('Hello', expect.any(Number), expect.any(Number));
+  expect(drawSpy).toHaveBeenCalledTimes(2);
+  expect(drawSpy).toHaveBeenLastCalledWith(expect.any(Image), 'Hello');
 
   const canvas = container.querySelector('canvas');
   expect(canvas.width).toBe(500); // match dawson.jpg width
@@ -108,20 +104,20 @@ test('updates the canvas on caption change', async () => {
   const snapshot = await getCanvasSnapshot(canvas);
   expect(snapshot).toMatchSnapshot();
 
-  fillTxtSpy.mockRestore();
+  drawSpy.mockRestore();
 });
 
 test('updates the canvas when another template is selected', async () => {
   let container;
   let getByLabelText;
-  const drawImgSpy = jest.spyOn(CanvasRenderingContext2D.prototype, 'drawImage');
+  const drawSpy = jest.spyOn(MemeCreator.prototype, 'drawCanvas');
 
   await act(async () => {
     ({ container, getByLabelText } = render(<MemeCreator />));
   });
 
-  expect(drawImgSpy).toHaveBeenCalledTimes(1);
-  expect(drawImgSpy).toHaveBeenCalledWith(expect.any(Image), 0, 0);
+  expect(drawSpy).toHaveBeenCalledTimes(1);
+  expect(drawSpy).toHaveBeenLastCalledWith(expect.any(Image), '');
 
   // update template
   await act(async () => {
@@ -129,8 +125,8 @@ test('updates the canvas when another template is selected', async () => {
     fireEvent.change(selectElement, { target: { value: 'jackieChan' } });
   });
 
-  expect(drawImgSpy).toHaveBeenCalledTimes(2);
-  expect(drawImgSpy).toHaveBeenLastCalledWith(expect.any(Image), 0, 0);
+  expect(drawSpy).toHaveBeenCalledTimes(2);
+  expect(drawSpy).toHaveBeenLastCalledWith(expect.any(Image), '');
 
   const canvas = container.querySelector('canvas');
   expect(canvas.width).toBe(500); // match jackie-chan.jpg width
@@ -138,7 +134,7 @@ test('updates the canvas when another template is selected', async () => {
   const snapshot = await getCanvasSnapshot(canvas);
   expect(snapshot).toMatchSnapshot();
 
-  drawImgSpy.mockRestore();
+  drawSpy.mockRestore();
 });
 
 test('triggers a save of the canvas Blob when clicking Download btn', async () => {

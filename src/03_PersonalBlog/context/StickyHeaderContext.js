@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Link } from "@reach/router";
 
-import styles from './StickyHeader.module.css';
-import { UserContext } from './UserContext1';
+import styles from '../StickyHeader.module.css';
+import { UserContext } from './UserContext';
 
 function StickyHeader() {
   const { name } = useContext(UserContext);

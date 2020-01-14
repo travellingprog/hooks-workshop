@@ -1,12 +1,9 @@
 import React from 'react';
 
-import styles from './Person.module.css';
-import useSwapi from './useSwapi';
+import styles from '../Person.module.css';
+import withSwapi from './withSwapiInitial';
 
-function Person({ id }) {
-  const { data, loading } = useSwapi('people', { id });
-  const person = data;
-
+function Person({ data: person, loading }) {
   if (loading) {
     return <div className={styles.root}>Loading person...</div>
   }
@@ -37,4 +34,4 @@ function Person({ id }) {
   );
 }
 
-export default Person;
+export default withSwapi(Person, 'people');

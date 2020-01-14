@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from "@reach/router";
 
-import months from './months.json';
-import styles from './Profile.module.css';
-import { UserContext } from './UserContext1';
+import months from '../months.json';
+import styles from '../Profile.module.css';
+import { UserContext } from './UserContext';
 
 function Profile() {
   const {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './Films.module.css';
+import styles from '../Films.module.css';
 import useSwapi from './useSwapi';
 
 function Films() {

@@ -4,9 +4,22 @@ import { Link, Redirect, Router } from "@reach/router";
 
 import './index.css';
 import styles from './App.module.css';
+
+/* the components we'll work on */
 import MemeCreator from './01_MemeCreator/MemeCreator';
 import StarWarsInfo from './02_StarWarsInfo/StarWarsInfo';
 import PersonalBlog from './03_PersonalBlog/PersonalBlog';
+
+/* the results we'll expect */
+// import MemeCreator from './01_MemeCreator/hooks/MemeCreatorHooks';
+// import StarWarsInfo from './02_StarWarsInfo/hooks/StarWarsInfoHooks';
+// import PersonalBlog from './03_PersonalBlog/context/PersonalBlogContext';
+
+/* our initial state */
+// import MemeCreator from './01_MemeCreator/initial/MemeCreatorInitial';
+// import StarWarsInfo from './02_StarWarsInfo/initial/StarWarsInfoInitial';
+// import PersonalBlog from './03_PersonalBlog/initial/PersonalBlogInitial';
+
 
 const isActive = ({ isPartiallyCurrent }) => ({
   className: `${styles.link} ${isPartiallyCurrent ? styles.linkIsActive : ''}`,

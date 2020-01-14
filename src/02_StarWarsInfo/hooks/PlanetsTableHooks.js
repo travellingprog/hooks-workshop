@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import styles from './PlanetsTable.module.css';
+import styles from '../PlanetsTable.module.css';
 import useSwapi from './useSwapi';
 
 const ITEMS_PER_PAGE = 10;

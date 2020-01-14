@@ -1,10 +1,10 @@
 import React from 'react';
 
-import styles from './PersonalBlog.module.css';
+import styles from '../PersonalBlog.module.css';
 import StickyHeader from './StickyHeaderContext';
 import MainContent from './MainContentContext';
 import Sidebar from './SidebarContext';
-import { UserProvider } from './UserContext1';
+import { UserProvider } from './UserContext';
 
 function PersonalBlog() {
   return (
