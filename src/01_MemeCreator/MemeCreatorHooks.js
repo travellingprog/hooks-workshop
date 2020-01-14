@@ -24,42 +24,41 @@ function MemeCreator() {
     saveAs(blob, 'meme.png');
   }
 
-  async function loadMemeTemplate(memeValue) {
-    const template = memeTemplates.find(template => template.value === memeValue);
-    const img = new window.Image();
-
-    const imgLoadPromise = new Promise((resolve, reject) => {
-      img.onload = resolve;
-      img.onerror = reject;
-    });
-
-    img.src = process.env.PUBLIC_URL + template.path;
-    await imgLoadPromise;
-    setImage(img);
-  }
-
-  function drawCanvas(image, caption) {
-    const { height, width } = image;
-    const canvas = canvasRef.current;
-    canvas.width = width;
-    canvas.height = height;
-
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, width, height);
-    ctx.drawImage(image, 0, 0);
-    ctx.font = "40px sans-serif";
-    ctx.fillStyle = 'white';
-    ctx.strokeStyle = 'black';
-    ctx.textAlign = 'center';
-    ctx.fillText(caption, width * 0.5, height * 0.15);
-    ctx.strokeText(caption, width * 0.5, height * 0.15);
-  }
-
   useEffect(() => {
+    async function loadMemeTemplate(memeValue) {
+      const template = memeTemplates.find(template => template.value === memeValue);
+      const img = new window.Image();
+
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+        img.src = process.env.PUBLIC_URL + template.path;
+      });
+
+      setImage(img);
+    }
+
     loadMemeTemplate(meme);
   }, [meme]);
 
   useEffect(() => {
+    function drawCanvas(image, caption) {
+      const { height, width } = image;
+      const canvas = canvasRef.current;
+      canvas.width = width;
+      canvas.height = height;
+
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, width, height);
+      ctx.drawImage(image, 0, 0);
+      ctx.font = "40px sans-serif";
+      ctx.fillStyle = 'white';
+      ctx.strokeStyle = 'black';
+      ctx.textAlign = 'center';
+      ctx.fillText(caption, width * 0.5, height * 0.15);
+      ctx.strokeText(caption, width * 0.5, height * 0.15);
+    }
+
     if (image) {
       drawCanvas(image, caption);
     }
