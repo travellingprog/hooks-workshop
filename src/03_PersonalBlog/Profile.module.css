@@ -1,0 +1,33 @@
+.root {
+  padding: 1.25em;
+}
+
+.header {
+  color: var(--dark-accent);
+}
+
+.label {
+  display: inline-block;
+  margin-bottom: 0.8em;
+}
+
+.input {
+  display: inline-block;
+  height: 1.5em;
+  margin-left: 0.5em;
+  padding: 0.25em;
+  vertical-align: middle;
+}
+
+.select {
+  display: inline-block;
+  height: 2.1em;
+  margin: 0 0.75em 0 0.5em;
+  padding: 0.25em;
+  vertical-align: text-bottom;
+}
+
+.link {
+  color: var(--light-accent);
+  text-decoration: none;
+}

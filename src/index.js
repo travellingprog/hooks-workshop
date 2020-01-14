@@ -6,7 +6,7 @@ import './index.css';
 import styles from './App.module.css';
 import MemeCreator from './01_MemeCreator/MemeCreator';
 import StarWarsInfo from './02_StarWarsInfo/StarWarsInfo';
-import PersonalBlog from './03_PersonalBlog/PersonalBlogContext';
+import PersonalBlog from './03_PersonalBlog/PersonalBlog';
 
 const isActive = ({ isPartiallyCurrent }) => ({
   className: `${styles.link} ${isPartiallyCurrent ? styles.linkIsActive : ''}`,

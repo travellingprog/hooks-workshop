@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays'
 
+import styles from './BirthdayCountdown.module.css';
 import { UserContext } from './UserContext1';
 
 function getDaysLeft(month, day) {
@@ -18,8 +19,10 @@ function BirthdayCountdown() {
   const { birthMonth, birthDay } = useContext(UserContext);
 
   return (
-    <section>
-      There are {getDaysLeft(birthMonth, birthDay)} days left until your birthday!
+    <section className={styles.root}>
+      There are
+      <div className={styles.days}>{getDaysLeft(birthMonth, birthDay)}</div>
+      days left until your birthday!
     </section>
   );
 }

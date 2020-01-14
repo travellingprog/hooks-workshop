@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Link } from "@reach/router";
 
 import months from './months.json';
+import styles from './Profile.module.css';
 import { UserContext } from './UserContext1';
 
 function Profile() {
@@ -34,28 +35,33 @@ function Profile() {
   const numDays = months[birthMonth - 1].days;
 
   return (
-    <div>
-      <label>
-        Name:
-        <input type="text" value={name} onChange={onNameChange} />
-      </label>
-      <label>
-        Birth Month:
-        <select type="text" value={birthMonth} onChange={onMonthChange}>
-          {months.map((month, i) =>
-            <option key={i} value={i + 1}>{month.name}</option>
-          )}
-        </select>
-      </label>
-      <label>
-        Birth Day:
-        <select type="text" value={birthDay} onChange={onDayChange}>
-          {Array(numDays).fill().map((elem, i) =>
-            <option key={i} value={i + 1}>{i + 1}</option>
-          )}
-        </select>
-      </label>
-      <Link to="../">Return To Blog</Link>
+    <div className={styles.root}>
+      <h1 className={styles.header}>Profile</h1>
+      <div>
+        <label className={styles.label}>
+          Name
+          <input type="text" value={name} onChange={onNameChange} className={styles.input} />
+        </label>
+      </div>
+      <div>
+        <label className={styles.label}>
+          Birth Month
+          <select type="text" value={birthMonth} onChange={onMonthChange} className={styles.select}>
+            {months.map((month, i) =>
+              <option key={i} value={i + 1}>{month.name}</option>
+            )}
+          </select>
+        </label>
+        <label className={styles.label}>
+          Birth Day
+          <select type="text" value={birthDay} onChange={onDayChange} className={styles.select}>
+            {Array(numDays).fill().map((elem, i) =>
+              <option key={i} value={i + 1}>{i + 1}</option>
+            )}
+          </select>
+        </label>
+      </div>
+      <Link to="../" className={styles.link}>Return To Blog</Link>
     </div>
   );
 }
