@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { saveAs } from 'file-saver';
 
-import styles from './MemeCreator.module.css';
-import memeTemplates from './memeTemplates.json';
+import styles from '../MemeCreator.module.css';
+import memeTemplates from '../memeTemplates.json';
 
 function MemeCreator() {
   const canvasRef = useRef(null);

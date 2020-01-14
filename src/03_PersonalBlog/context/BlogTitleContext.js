@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
-import styles from './BlogTitle.module.css';
-import { UserContext } from './UserContext1';
+import styles from '../BlogTitle.module.css';
+import { UserContext } from './UserContext';
 
 function BlogTitle() {
   const { name } = useContext(UserContext);

@@ -4,7 +4,7 @@ export const UserContext = React.createContext({});
 UserContext.displayName = 'UserContext';
 
 export function UserProvider({ children }) {
-  const [name, setName] = useState('Anon1');
+  const [name, setName] = useState('Anon');
   const [birthMonth, setBirthMonth] = useState(1);
   const [birthDay, setBirthDay] = useState(1);
 
