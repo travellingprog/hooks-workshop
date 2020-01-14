@@ -22,4 +22,5 @@
 .linkIsActive,
 .linkIsActive:hover {
   color: var(--light-accent);
+  font-weight: bold;
 }

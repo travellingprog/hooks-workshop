@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Link, Router } from "@reach/router";
+import { Link, Redirect, Router } from "@reach/router";
 
 import './index.css';
 import styles from './App.module.css';
@@ -15,14 +15,15 @@ const isActive = ({ isPartiallyCurrent }) => ({
 const App = () => (
   <div>
     <nav className={styles.nav}>
-      <Link to="/meme-creator" getProps={isActive}>Meme Creator</Link>
+      <Link to="meme-creator" getProps={isActive}>Meme Creator</Link>
       <Link to="star-wars-info" getProps={isActive}>Star Wars Info</Link>
       <Link to="personal-blog" getProps={isActive}>Personal Blog</Link>
     </nav>
     <Router>
-      <MemeCreator path="meme-creator" default />
+      <MemeCreator path="meme-creator" />
       <StarWarsInfo path="star-wars-info" />
       <PersonalBlog path="personal-blog/*" />
+      <Redirect from="/" to="meme-creator" noThrow />
     </Router>
   </div>
 );

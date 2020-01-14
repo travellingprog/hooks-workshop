@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 
+import styles from './PlanetsTable.module.css';
 import withSwapi from './withSwapi';
 
 const ITEMS_PER_PAGE = 10;
@@ -40,19 +41,21 @@ function PlanetsTable({ data, loading, setNumPages }) {
       <table>
         <thead>
           <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Population</th>
-            <th scope="col">Climate</th>
-            <th scope="col">Terrain</th>
+            <th scope="col" className={`${styles.header} ${styles.headerFirstCol}`}>Name</th>
+            <th scope="col" className={styles.header}>Population</th>
+            <th scope="col" className={styles.header}>Climate</th>
+            <th scope="col" className={styles.header}>Terrain</th>
           </tr>
         </thead>
         <tbody>
           {planets.map(planet =>
             <tr key={planet.url}>
-              <th scope="row">{planet.name}</th>
-              <td>{displayPopulation(planet.population)}</td>
-              <td>{planet.climate}</td>
-              <td>{planet.terrain}</td>
+              <th scope="row" className={styles.name}>{planet.name}</th>
+              <td className={`${styles.val} ${styles.valNum}`}>
+                {displayPopulation(planet.population)}
+              </td>
+              <td className={styles.val}>{planet.climate}</td>
+              <td className={styles.val}>{planet.terrain}</td>
             </tr>
           )}
         </tbody>

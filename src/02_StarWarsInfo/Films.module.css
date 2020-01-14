@@ -1,0 +1,45 @@
+.root {
+  align-content: flex-start;
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  max-width: 63em;
+}
+
+.film {
+  flex: 1 1 auto;
+  max-width: 21em;
+  width: 21em;
+}
+
+.title {
+  color: var(--light-shade);
+  margin-bottom: 0.1em;
+}
+
+.subtitle {
+  color: var(--brand-color);
+  margin-top: 0.2em;
+}
+
+.list {
+  overflow: visible;
+  padding: 0 1.5em 0 0;
+}
+
+.itemKey {
+  color: var(--light-accent);
+  display: inline-block;
+  margin-bottom: 0.1em;
+}
+
+.itemVal {
+  margin: 0 0 0.1em 0.6em;
+  display: inline;
+}
+
+.itemVal:after {
+  content: '';
+  display: block;
+}

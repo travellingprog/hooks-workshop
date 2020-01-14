@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import useDebounce from 'react-use/lib/useDebounce';
 
-import PlanetsTable from './PlanetsTableHooks';
+import styles from './Planets.module.css';
+import PlanetsTable from './PlanetsTable';
 
 function Planets() {
   const [page, setPage] = useState(1);
@@ -24,20 +25,23 @@ function Planets() {
   }, 500, [search])
 
   return (
-    <section>
-      <label>
-        Search: <br />
-        <input type="text" value={search} onChange={onSearchInput} />
-      </label>
-      <br />
-      <label>
-        Page: <br />
-        <select value={page} onChange={onPageSelect} disabled={numPages < 1}>
-          { Array(numPages).fill().map((elem, i) =>
-            <option key={i + 1} value={i + 1}>{i + 1}</option>
-          )}
-        </select>
-      </label>
+    <section className={styles.root}>
+      <div className={styles.form}>
+        <label className={styles.label}>
+          Search: <br />
+          <input type="text" value={search} onChange={onSearchInput} className={styles.search} />
+        </label>
+        <br />
+        <label className={styles.label}>
+          Page:
+          <select value={page} onChange={onPageSelect} disabled={numPages < 1}
+          className={styles.select}>
+            { Array(numPages).fill().map((elem, i) =>
+              <option key={i + 1} value={i + 1}>{i + 1}</option>
+            )}
+          </select>
+        </label>
+      </div>
 
       <PlanetsTable page={page} search={debouncedSearch} setNumPages={setNumPages} />
     </section>

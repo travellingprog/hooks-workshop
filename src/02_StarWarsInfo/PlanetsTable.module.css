@@ -1,0 +1,24 @@
+.header {
+  color: var(--dark-accent);
+  font-weight: bold;
+  text-align: center;
+}
+
+.headerFirstCol {
+  text-align: left;
+}
+
+.name {
+  color: var(--light-accent);
+  font-weight: bold;
+  text-align: left;
+}
+
+.val {
+  padding: 0.2em 1em;
+  text-align: center;
+}
+
+.valNum {
+  text-align: right;
+}

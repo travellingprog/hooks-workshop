@@ -1,0 +1,24 @@
+.root {
+  margin-bottom: 3em;
+}
+
+.form {
+  margin-bottom: 1.5em;
+}
+
+.label {
+  color: var(--brand-color);
+  font-weight: bold;
+}
+
+.search {
+  margin-bottom: 1em;
+}
+
+.select {
+  background-color: var(--light-shade);
+  color: var(--brand-color);
+  font-size: 0.8em;
+  margin-left: 0.5em;
+  padding-left: 0.5em;
+}
