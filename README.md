@@ -10,18 +10,6 @@ To begin this workshop
 - Use the latest version of Node indicated in the file `.nvmrc`. If you are using NVM, you can run `nvm use`
 - Run `npm install`
 
-To run this application (in development mode):
-```
-npm start
-```
-
-To run the test for this application:
-```
-npm test
-```
-
-This repository was built with Create-React-App. The rest of this README is content added automatically by that tool.
-
 ## Available Scripts
 
 In the project directory, you can run:
@@ -49,42 +37,23 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Interesting Reads
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**[Thinking in React Hooks](https://wattenberger.com/blog/react-hooks)**
+Great explanation of how implementing hooks how you think about the changes happening in your omponents. Includes quick comparisons and some custom hook examples.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**[A Complete Guide to useEffect](https://overreacted.io/a-complete-guide-to-useeffect/)**
+As the title implies, a thorough guide on useEffect, including some gotchas you might run into
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**[State Management with React Hooks and Context API in 10 lines of code!](https://medium.com/simply/state-management-with-react-hooks-and-context-api-at-10-lines-of-code-baf6be8302c)**
+Clever and concise use of Hooks and Context to arrive at something that feels very similar to Redux. Keep in mind, however, that the `state` is changed on every dispatch, and all consumers are triggered by that change.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+**[React issue: Preventing rerenders with React.memo and useContext hook](https://github.com/facebook/react/issues/15156#issuecomment-474590693)**
+The link to this comment on GitHub is actually referenced in the API documentation of `useContext`. It presents 3 different ways you can try to optimize your use of useContext when it has an object value.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+**[React-Redux Roadmap: v6, Context, Subscriptions, and Hooks](https://github.com/reduxjs/react-redux/issues/1177)**
+React-Redux decided to switch to using Context in v6, ran into performance issues, ditched it in favor returning to something closer to pubsub for v7. This Github Issue goes into great detail about what problems they ran to and had some interesting tidbits of knowledge they gained from this experience.
