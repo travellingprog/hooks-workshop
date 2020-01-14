@@ -5,6 +5,18 @@ import { saveAs } from 'file-saver';
 
 import MemeCreator from './MemeCreatorHooks';
 
+async function getCanvasSnapshot(canvas) {
+  const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.5));
+  const blobText = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (evt) => resolve(evt.target.result);
+    reader.onerror = reject;
+    reader.readAsText(blob);
+  });
+
+  return blobText;
+}
+
 jest.mock('./memeTemplates.json', () => [
   {
     value: 'cryingDawson',
@@ -62,8 +74,8 @@ test('sets up the canvas on load', async () => {
   const canvas = container.querySelector('canvas');
   expect(canvas.width).toBe(500); // match dawson.jpg width
   expect(canvas.height).toBe(451); // match dawson.jpg height
-  const dataUrl = canvas.toDataURL('image/png', 0.92);
-  expect(dataUrl).toMatchSnapshot();
+  const snapshot = await getCanvasSnapshot(canvas);
+  expect(snapshot).toMatchSnapshot();
 
   drawImgSpy.mockRestore();
   fillTxtSpy.mockRestore();
@@ -93,8 +105,8 @@ test('updates the canvas on caption change', async () => {
   const canvas = container.querySelector('canvas');
   expect(canvas.width).toBe(500); // match dawson.jpg width
   expect(canvas.height).toBe(451); // match dawson.jpg height
-  const dataUrl = canvas.toDataURL('image/png', 0.92);
-  expect(dataUrl).toMatchSnapshot();
+  const snapshot = await getCanvasSnapshot(canvas);
+  expect(snapshot).toMatchSnapshot();
 
   fillTxtSpy.mockRestore();
 });
@@ -123,8 +135,8 @@ test('updates the canvas when another template is selected', async () => {
   const canvas = container.querySelector('canvas');
   expect(canvas.width).toBe(500); // match jackie-chan.jpg width
   expect(canvas.height).toBe(327); // match jackie-chan.jpg height
-  const dataUrl = canvas.toDataURL('image/png', 0.92);
-  expect(dataUrl).toMatchSnapshot();
+  const snapshot = await getCanvasSnapshot(canvas);
+  expect(snapshot).toMatchSnapshot();
 
   drawImgSpy.mockRestore();
 });
