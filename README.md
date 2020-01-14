@@ -51,7 +51,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 
 **State Management with React Hooks and Context API in 10 lines of code!**
-- https://medium.com/simply/state-management-with-react-hooks-and-context-api-at-10-lines-of-code-baf6be8302c)
+- https://medium.com/simply/state-management-with-react-hooks-and-context-api-at-10-lines-of-code-baf6be8302c
 - Clever and concise use of Hooks and Context to arrive at something that feels very similar to Redux. Keep in mind, however, that the `state` is changed on every dispatch, and all consumers are triggered by that change.
 
 
