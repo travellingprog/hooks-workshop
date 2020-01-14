@@ -1,0 +1,12 @@
+.root {
+  background-color: var(--dark-accent);
+  color: var(--light-shade);
+  font-size: 0.75em;
+  line-height: 2em;
+  padding-right: 1em;
+  text-align: right;
+}
+
+.link {
+  color: var(--light-accent);
+}

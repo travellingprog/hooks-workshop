@@ -1,5 +1,6 @@
 import React from 'react';
 
+import styles from './Films.module.css';
 import useSwapi from './useSwapi';
 
 function Films() {
@@ -15,22 +16,22 @@ function Films() {
     .sort((a, b) => a.release_date.localeCompare(b.release_date));
 
   return (
-    <section>
+    <section className={styles.root}>
       {films.map(film =>
-        <div key={film.episode_id}>
+        <div key={film.episode_id} className={styles.film}>
           <header>
-            <h2>{film.title}</h2>
-            <p>Episode {film.episode_id}</p>
+            <h2 className={styles.title}>{film.title}</h2>
+            <p className={styles.subtitle}>Episode {film.episode_id}</p>
           </header>
-          <dl>
-            <dt>Director</dt>
-            <dd>{film.director}</dd>
+          <dl className={styles.list}>
+            <dt className={styles.itemKey}>Director</dt>
+            <dd className={styles.itemVal}>{film.director}</dd>
 
-            <dt>Producer</dt>
-            <dd>{film.producer}</dd>
+            <dt className={styles.itemKey}>Producer</dt>
+            <dd className={styles.itemVal}>{film.producer}</dd>
 
-            <dt>Release Date</dt>
-            <dd>{film.release_date}</dd>
+            <dt className={styles.itemKey}>Release Date</dt>
+            <dd className={styles.itemVal}>{film.release_date}</dd>
           </dl>
         </div>
       )}

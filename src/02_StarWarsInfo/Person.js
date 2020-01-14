@@ -1,33 +1,34 @@
 import React from 'react';
 
+import styles from './Person.module.css';
 import withSwapi from './withSwapi';
 
 function Person({ data: person, loading }) {
   if (loading) {
-    return <div>Loading person...</div>
+    return <div className={styles.root}>Loading person...</div>
   }
 
   return (
-    <section>
-      <h2>{person.name}</h2>
-      <dl>
-        <dt>Gender</dt>
-        <dd>{person.gender}</dd>
+    <section className={styles.root}>
+      <h2 className={styles.name}>{person.name}</h2>
+      <dl className={styles.list}>
+        <dt className={styles.itemKey}>Gender</dt>
+        <dd className={styles.itemVal}>{person.gender}</dd>
 
-        <dt>Birth Year</dt>
-        <dd>{person.birth_year}</dd>
+        <dt className={styles.itemKey}>Birth Year</dt>
+        <dd className={styles.itemVal}>{person.birth_year}</dd>
 
-        <dt>Height</dt>
-        <dd>{person.height} cm</dd>
+        <dt className={styles.itemKey}>Height</dt>
+        <dd className={styles.itemVal}>{person.height} cm</dd>
 
-        <dt>Mass</dt>
-        <dd>{person.mass} kg</dd>
+        <dt className={styles.itemKey}>Mass</dt>
+        <dd className={styles.itemVal}>{person.mass} kg</dd>
 
-        <dt>Hair Color</dt>
-        <dd>{person.hair_color}</dd>
+        <dt className={styles.itemKey}>Hair Color</dt>
+        <dd className={styles.itemVal}>{person.hair_color}</dd>
 
-        <dt>Eye Color</dt>
-        <dd>{person.eye_color}</dd>
+        <dt className={styles.itemKey}>Eye Color</dt>
+        <dd className={styles.itemVal}>{person.eye_color}</dd>
       </dl>
     </section>
   );

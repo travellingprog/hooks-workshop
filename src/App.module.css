@@ -1,0 +1,26 @@
+.nav {
+  align-items: center;
+  background-color: var(--brand-color);
+  display: flex;
+  height: var(--nav-height);
+  justify-content: space-around;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.link {
+  color: var(--dark-shade);
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--light-shade);
+}
+
+.linkIsActive,
+.linkIsActive:hover {
+  color: var(--light-accent);
+  font-weight: bold;
+}

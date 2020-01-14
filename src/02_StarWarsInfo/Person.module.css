@@ -1,0 +1,30 @@
+.root {
+  flex: 1 1 auto;
+  max-width: 21em;
+  width: 21em;
+}
+
+.name {
+  color: var(--brand-color);
+}
+
+.list {
+  overflow: visible;
+  padding: 0 1.5em 0 0;
+}
+
+.itemKey {
+  color: var(--light-accent);
+  display: inline-block;
+  margin-bottom: 0.1em;
+}
+
+.itemVal {
+  margin: 0 0 0.1em 0.6em;
+  display: inline;
+}
+
+.itemVal:after {
+  content: '';
+  display: block;
+}

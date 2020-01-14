@@ -1,0 +1,9 @@
+.root {
+  padding: 0 0.25em;
+  text-align: center;
+}
+
+.days {
+  color: var(--dark-accent);
+  font-size: 1.5em;
+}

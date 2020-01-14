@@ -1,5 +1,6 @@
 import React from 'react';
 
+import styles from './PersonalBlog.module.css';
 import StickyHeader from './StickyHeaderContext';
 import MainContent from './MainContentContext';
 import Sidebar from './SidebarContext';
@@ -9,9 +10,17 @@ function PersonalBlog() {
   return (
     <div>
       <UserProvider>
-        <StickyHeader />
-        <MainContent />
-        <Sidebar />
+        <div className={styles.stickyTop}>
+          <StickyHeader />
+        </div>
+        <div className={styles.underSticky}>
+          <div className={styles.main}>
+            <MainContent />
+          </div>
+          <div className={styles.sidebar}>
+            <Sidebar />
+          </div>
+        </div>
       </UserProvider>
     </div>
   );
