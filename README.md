@@ -40,20 +40,25 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Interesting Reads
 
-**[Thinking in React Hooks](https://wattenberger.com/blog/react-hooks)**
-Great explanation of how implementing hooks how you think about the changes happening in your omponents. Includes quick comparisons and some custom hook examples.
+**Thinking in React Hooks**
+- https://wattenberger.com/blog/react-hooks
+- Great explanation of how implementing hooks how you think about the changes happening in your omponents. Includes quick comparisons and some custom hook examples.
 
 
-**[A Complete Guide to useEffect](https://overreacted.io/a-complete-guide-to-useeffect/)**
-As the title implies, a thorough guide on useEffect, including some gotchas you might run into
+**A Complete Guide to useEffect**
+- https://overreacted.io/a-complete-guide-to-useeffect/
+- As the title implies, a thorough guide on useEffect, including some gotchas you might run into
 
 
-**[State Management with React Hooks and Context API in 10 lines of code!](https://medium.com/simply/state-management-with-react-hooks-and-context-api-at-10-lines-of-code-baf6be8302c)**
-Clever and concise use of Hooks and Context to arrive at something that feels very similar to Redux. Keep in mind, however, that the `state` is changed on every dispatch, and all consumers are triggered by that change.
+**State Management with React Hooks and Context API in 10 lines of code!**
+- https://medium.com/simply/state-management-with-react-hooks-and-context-api-at-10-lines-of-code-baf6be8302c)
+- Clever and concise use of Hooks and Context to arrive at something that feels very similar to Redux. Keep in mind, however, that the `state` is changed on every dispatch, and all consumers are triggered by that change.
 
 
-**[React issue: Preventing rerenders with React.memo and useContext hook](https://github.com/facebook/react/issues/15156#issuecomment-474590693)**
-The link to this comment on GitHub is actually referenced in the API documentation of `useContext`. It presents 3 different ways you can try to optimize your use of useContext when it has an object value.
+**React issue: Preventing rerenders with React.memo and useContext hook**
+- https://github.com/facebook/react/issues/15156#issuecomment-474590693
+- The link to this comment on GitHub is actually referenced in the API documentation of `useContext`. It presents 3 different ways you can try to optimize your use of useContext when it has an object value.
 
-**[React-Redux Roadmap: v6, Context, Subscriptions, and Hooks](https://github.com/reduxjs/react-redux/issues/1177)**
-React-Redux decided to switch to using Context in v6, ran into performance issues, ditched it in favor returning to something closer to pubsub for v7. This Github Issue goes into great detail about what problems they ran to and had some interesting tidbits of knowledge they gained from this experience.
+**React-Redux Roadmap: v6, Context, Subscriptions, and Hooks**
+- https://github.com/reduxjs/react-redux/issues/1177
+- React-Redux decided to switch to using Context in v6, ran into performance issues, ditched it in favor returning to something closer to pubsub for v7. This Github Issue goes into great detail about what problems they ran to and had some interesting tidbits of knowledge they gained from this experience.
