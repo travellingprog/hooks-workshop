@@ -24,7 +24,7 @@ function useSwapi(resource, options = {}) {
   } = options;
 
   useEffect(() => {
-    async function loadData(resouce, id, page, search) {
+    async function loadData(resource, id, page, search) {
       setLoading(true);
 
       let url;
